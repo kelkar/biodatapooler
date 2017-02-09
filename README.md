@@ -17,6 +17,11 @@ PAML (http://abacus.gene.ucl.ac.uk/software/)
 Perl
 
 ### 3. Usage
+
+General usage:
+```
+python -u bioadatapooler.py -c controlfile.txt >  output.txt
+```
 This is a data integration pipeline with a lot of subroutines that are designed to 
 integrate data for sets of ortholgous proteins accross multiple species. 
 Input data is presumed to be in form of files of various formats (fasta, gff3, cuffdiff, 
@@ -29,27 +34,39 @@ Control file has a tab-separated format that needs to be followed strictly.
 Please see the supplied example files for proper usage.
 
 Example:
+
 ```
-#speciesTag     type    characteristic  file
-ALL     numspecies      param   4
-ALL     orthomcl        ortholist       /scratch/ykelkar2/muni/EVM/3May2016/tempundone.txt
-ALL     pamlctl pairwise        /scratch/ykelkar2/muni/EVM/3May2016/lysozyme_pairwise_4sp.ctl
-ALL     pamlctl null    /scratch/ykelkar2/muni/EVM/3May2016/lysozyme_M0_4sp.ctl
-ALL     pamlctl freeRatio       /scratch/ykelkar2/muni/EVM/3May2016/lysozyme_M1_4sp.ctl
-MUNI    pamlctl neutral /scratch/ykelkar2/muni/EVM/3May2016/lysozyme_MuniBranchNeutral_4sp.ctl
-MUNI    pamlctl special /scratch/ykelkar2/muni/EVM/3May2016/lysozyme_MuniBranch_4sp.ctl
-ALL     workdir NA      /scratch/ykelkar2/muni/EVM/3May2016/
-MRAP    annotation      gff     /scratch/ykelkar2/muni/EVM/MRAP.evm.out.pepp.gff3
-MUNI    annotation      gff     /scratch/ykelkar2/muni/EVM/MUNI.evm.out.pepp.gff3
-MUNI    cuffdiff        male_female     /scratch/ykelkar2/muni/annotation/muni_cufflinks_male/MUNI.cuffdiff.2/gene_exp.diff
-MRAP    cuffdiff        male_female     /scratch/ykelkar2/rap/annotation/MRAP.cuffdiff.2/gene_exp.diff
-MUNI    annotation      protein /scratch/ykelkar2/muni/EVM/MUNI.evm.out.pepp.cds.fasta
-MRAP    annotation      protein /scratch/ykelkar2/muni/EVM/MRAP.evm.out.pepp.cds.fasta
-MUNI    annotation      nucleotide      /scratch/ykelkar2/muni/EVM/MUNI.evm.out.pepp.cds.fasta
-MRAP    annotation      nucleotide      /scratch/ykelkar2/muni/EVM/MRAP.evm.out.pepp.cds.fasta
-MUNI    annotation      genome  /scratch/ykelkar2/muni/EVM/muni_sspace_gapfilled_13Nov2014.fa
-MRAP    annotation      genome  /scratch/ykelkar2/rap/EVM/rapvS-gapf.gapfilled.final.fa
+#speciesTag	type	method	file
+ALL	numspecies	param	4
+ALL	orthomcl	ortholist	orthoMCL.output.file.txt
+ALL	pamlctl	pairwise	pairwise_paml_controlfile.ctl
+ALL	pamlctl	null	paml_ModelM0_controlfile.ctl
+ALL	pamlctl	freeRatio	paml_FreeRatio_controlfile.ctl
+MUNI	pamlctl	neutral	paml_MuniBranchNeutral_controlfile.ctl
+MUNI	pamlctl	special	paml_MuniBranchSpecial_controlfile.ctl
+ALL	workdir	NA	your/working/directory/
+MRAP	annotation	gff	MRAP.gff3
+MUNI	annotation	gff	MUNI.gff3
+MUNI	cuffdiff	male_female	gene_exp.diff
+MUNI	annotation	protein	Muni.proteins.fasta
+MUNI	annotation	nucleotide	Muni.nucleotides.fasta
+MUNI	annotation	genome	muni.genome.fasta
 ```
+
+For the control file, valid 'type' and related 'method' are:
+
+```
+TYPE          METHOD
+numSpecies    param
+orthoml       ortholist
+pamlctl       pairwise,null,freeRatio,neutral,special
+workdir       NA
+annotation    gff,protein,nucleotide,genome
+columndata    NA
+```
+
+This list will expand, allowing users to enter paths of external tools. 
+
 Integration of these
 species-specific datasets is driven by a user-provided list of proteins; most likely
 this list is of orthologous proteins. The ortholgous protein list is of the format of
