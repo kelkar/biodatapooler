@@ -401,7 +401,7 @@ def align_nucl_objs_phylip(prots, grpname):
         fin.close()
         fout.close()
 
-    comm = 'perl ~/bin/ReplaceStopCodonsWithGaps_sort.pl -nuc ' + alignmentOutputFile + ".1"
+    comm = 'perl ReplaceStopCodonsWithGaps_sort.pl -nuc ' + alignmentOutputFile + ".1"
     print >> sys.stderr, comm
     os.system(comm)
     if not os.path.isfile(alignmentOutputFile + ".phy"):
