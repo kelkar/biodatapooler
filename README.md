@@ -11,9 +11,9 @@
 Python 2.7
 
 ### 2. Dependencies
-Python modules: numpy1.7.1, BioPython (AlignIO, Align, Phylo), scipy
-translatorx (http://translatorx.co.uk/)
-PAML (http://abacus.gene.ucl.ac.uk/software/)
+Python modules: numpy1.7.1, BioPython (AlignIO, Align, Phylo), scipy,
+translatorx (http://translatorx.co.uk/),
+PAML (http://abacus.gene.ucl.ac.uk/software/),
 Perl
 
 ### 3. Usage
